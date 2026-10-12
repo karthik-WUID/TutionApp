@@ -1,0 +1,40 @@
+{
+  "name": "smart-tutor",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k -n api,web \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:api": "node --watch server/index.mjs",
+    "dev:web": "vite --host 0.0.0.0",
+    "build": "tsc -b && vite build",
+    "start": "node server/index.mjs",
+    "test": "node --test test/*.test.mjs",
+    "test:browser": "npm run build && node test/browser.mjs && node test/workspace-browser.mjs && node test/curriculum-browser.mjs && node test/dictionary-browser.mjs",
+    "test:curriculum:browser": "node test/curriculum-browser.mjs",
+    "test:dictionary:browser": "node test/dictionary-browser.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/dm-sans": "^5.2.8",
+    "@fontsource-variable/outfit": "^5.2.8",
+    "express": "^5.1.0",
+    "lucide-react": "^0.468.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "three": "^0.180.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.0",
+    "@types/node": "^24.7.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@types/three": "^0.180.0",
+    "@vitejs/plugin-react": "^5.0.4",
+    "concurrently": "^9.2.1",
+    "typescript": "~5.9.3",
+    "vite": "^7.1.7"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

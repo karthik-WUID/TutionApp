@@ -1,0 +1,15 @@
+export type TaskKind = 'homework' | 'reading' | 'writing' | 'speaking' | 'project' | 'research';
+export type Task = { id: string; student_id: string; subject: string; title: string; kind: TaskKind; instructions: string; due_at: string; minutes: number; status: 'todo' | 'in_progress' | 'submitted' | 'reviewed'; work: string; feedback: string; lesson_id: string | null; steps: string[]; completed_steps: string[] };
+export type PlanSettings = { dailyMinutes: number; startTime: string; blockMinutes: number; weekdays: number[]; weights: { subject: string; weight: number }[] };
+export type Block = { id: string; task_id: string | null; subject: string; title: string; starts_at: string; minutes: number; status: 'planned' | 'completed'; source: 'manual' | 'generated' };
+export type Language = { id: string; name: string; native: string; locale: string; phrases: string[][]; text: string; translation: string; questions: { prompt: string; options: string[] }[]; writing: string; scenario: string };
+export type Practice = { writing: string; speaking: string; confidence: number; reading: null | { score: number; total: number; answers: number[]; results: { correct: boolean; answer: number; explanation: string }[]; at: string } };
+export type Source = { title: string; url: string; note: string };
+export type Entry = { id: string; kind: 'writing' | 'speaking' | 'project' | 'research'; title: string; question: string; body: string; conclusion: string; sources: Source[]; checklist: string[]; status: 'draft' | 'completed'; feedback: string; updated_at: string };
+export type Workspace = { subjects: string[]; settings: PlanSettings; timezone: string; tasks: Task[]; blocks: Block[]; sessions: { id: string; title: string; starts_at: string; duration: number; subject: string }[]; languages: Language[]; practice: Record<string, Practice>; entries: Entry[]; generated?: number };
+export type Mutation = (path: string, body: object, success: string, method?: string) => Promise<boolean>;
+export const dayOf = (value = new Date().toISOString()) => new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Kolkata', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(value));
+export const nextDay = (day: string, offset: number) => new Date(Date.parse(`${day}T12:00:00Z`) + offset * 86400000).toISOString().slice(0, 10);
+export const localTime = (day: string, time: string) => new Date(`${day}T${time}:00+05:30`).toISOString();
+export const formatDate = (value: string) => new Intl.DateTimeFormat('en-IN', { timeZone: 'Asia/Kolkata', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }).format(new Date(value));
+export const isDone = (task: Task) => task.status === 'submitted' || task.status === 'reviewed';
