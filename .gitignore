@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.data/
+*.tsbuildinfo
+.env
+.env.local
+*.log
+.local/
+.DS_Store
+.env.*
+!.env.example
+*.apk
+*.aab
+*.keystore
+*.jks
